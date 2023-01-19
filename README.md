@@ -1,9 +1,9 @@
 # personalized_marketing
 
 ## Key features to implement
- - [ ] Upload targets' contact information
+ - [x] Upload targets' contact information
  - [ ] Specify a style of campaign you (the marketer) would like to run
- - [ ] AI generates email copy based on user guidance
+ - [x] AI generates email copy based on user guidance
  - [ ] Provide a variance score for each email to inform the user which email copies should be reviewed, given a high degree of variance
  - [ ] Initiate campaign by:
    - [ ] Copy and pasting into email client
