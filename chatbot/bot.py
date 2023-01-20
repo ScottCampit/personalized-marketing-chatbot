@@ -46,9 +46,9 @@ if __name__ == "__main__":
         try:
             df = pd.read_csv(uploaded_file)
         except:
-            print("Wrong file type - please upload a csv.")
+            st.write("Wrong file type - please upload a csv.")
             
-    # Create sidebar
+    # Create Form
     with st.form(key='my_form'):
         value_prop = st.text_area(
             label="What is your product's value proposition?",
@@ -69,7 +69,6 @@ if __name__ == "__main__":
         st.write('Press submit to generate personalized emails.')
         submit_button = st.form_submit_button(label='Submit')
 
-    # Irrelevant -> need to edit the prompt based on user input
     is_done = False
     df['prompt'] = ''
     df['response'] = ''
