@@ -9,10 +9,12 @@ import pandas as pd
 import time
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
+pd.set_option('display.max_colwidth', None)
 
 # Chat GPT 
 def generate_response(prompt:str, temperature:float=0.1, max_tokens:int=2049, engine='text-davinci-003'):
     """
+    Uses OpenAI API to generate response from a prompt. Prompt structure is currently fixed.
     """
     response = openai.Completion.create(
         engine=engine,
@@ -31,6 +33,7 @@ def cache_df(df):
     return df.to_csv().encode('utf-8')
 
 if __name__ == "__main__":
+    df = pd.DataFrame()
     # Upload Excel or CSV file
     st.title("NewCo Application")
     uploaded_file = st.file_uploader(
@@ -68,24 +71,27 @@ if __name__ == "__main__":
 
     # Irrelevant -> need to edit the prompt based on user input
     is_done = False
+    df['prompt'] = ''
+    df['response'] = ''
     if submit_button:
         st.write("Generating emails!")
         all_prompts = list()
         all_responses = list()
         bar = st.progress(0)
         for idx, row in df.iterrows():
-            time.sleep(0.1)
             bar.progress(idx+1)
-            prompt = f"""Write a {email_tone}, {creative_conservative} email to {row['Name']}, {row['Title']} who is a {contact_list_type} customer from {row['Company']} in {row['Location']}. 
-            {row['Name']} {row['Fictional fun fact from data source']}. Product: {value_prop},"""
+            prompt = f"""
+                Write a {email_tone}, {creative_conservative} email to {row['Name']}, {row['Title']} who is a 
+                {contact_list_type} customer from {row['Company']} in {row['Location']}. 
+                Incorporate details like {row['Fictional fun fact from data source']}. Product: {value_prop},"""
             response = generate_response(prompt)
             all_prompts.append(prompt)
             all_responses.append(response)
-        is_done = True
-
-        df['prompt'] = all_prompts
-        df['response'] = all_responses
-        st.write("Finished!")
+            df.loc[idx]['prompt'] = prompt
+            df.loc[idx]['response'] = response
+        
+    is_done = True
+    st.write("Finished!")
     
     if is_done:
         st.download_button(
