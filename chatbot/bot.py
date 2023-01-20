@@ -11,7 +11,7 @@ import time
 openai.api_key = os.environ["OPENAI_API_KEY"]
 pd.set_option('display.max_colwidth', None)
 
-# Chat GPT 
+# Generative AI Engine
 def generate_response(prompt:str, temperature:float=0.1, max_tokens:int=2049, engine='text-davinci-003'):
     """
     Uses OpenAI API to generate response from a prompt. Prompt structure is currently fixed.
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         st.download_button(
             label="Download data as CSV",
             data=cache_df(df),
-            file_name='test.csv'
+            file_name='test_results.csv'
         )
 
 
