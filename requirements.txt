@@ -63,6 +63,6 @@ tzlocal==4.2
 urllib3==1.26.14
 validators==0.20.0
 watchdog==2.2.1
-Werkzeug==2.2.2
+Werkzeug==2.2.3
 yarl==1.8.2
 zipp==3.11.0
